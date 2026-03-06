@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>15 Stock & ETF Picks — March 2026</title>
+  <style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a}#root{min-height:100vh}</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const{useState}=React;
+const stocks=[{ticker:"EOG",name:"EOG Resources",sector:"Energy (E&P)",pe:"13.3x",upside:"~50-110%",conviction:"High",reason:"Best-in-class shale operator. PE of 13x, EV/EBITDA 6x, D/E 0.31, ROE 17%, ROIC 14%. Returned 100% of $4.7B FCF to shareholders in 2025. Low-cost Delaware Basin leader. Massive DCF discount to intrinsic value (~$269 vs ~$125). Asymmetric upside if oil stays elevated."},{ticker:"DVN",name:"Devon Energy",sector:"Energy (E&P)",pe:"10.7x",upside:"~30-60%",conviction:"High",reason:"Cheapest large-cap E&P at ~10x earnings. Variable dividend pays up to 50% of excess cash flow, so income scales with oil prices. Coterra merger adds Appalachian gas exposure. EV/EBITDA of 4.7x. Strong Permian and Delaware Basin acreage."},{ticker:"COP",name:"ConocoPhillips",sector:"Energy (E&P)",pe:"17.2x",upside:"~25-40%",conviction:"Medium",reason:"Post-Marathon, COP is the largest pure E&P with breakeven as low as $30/bbl. $7B FCF inflection projected by 2029 (Willow project). LNG offtake of 10 MTPA starting 2026. Scale and cost discipline are best in class. Pricier than EOG/DVN but lower risk."},{ticker:"LNG",name:"Cheniere Energy",sector:"Energy (LNG Infra)",pe:"10.3x",upside:"~30-50%",conviction:"High",reason:"Structural energy security play. 90% of LNG volumes locked in 20-year contracts. Wide moat (Morningstar). ROE 59%, ROIC 20%. Corpus Christi expansion online 2026. Benefits from any Strait of Hormuz disruption or European gas diversification. Low beta (0.27)."},{ticker:"MU",name:"Micron Technology",sector:"Semiconductors",pe:"~37x (13x fwd)",upside:"~20-60%",conviction:"High",reason:"Only US-based HBM manufacturer. HBM3e and HBM4 sold out for all of 2026. Revenue up 49% YoY, earnings up 998%. Forward PE of ~13x on booming AI demand. Nvidia's key memory supplier. $100B NY fab under construction. Secular AI demand, not cyclical this time."},{ticker:"GOOGL",name:"Alphabet",sector:"Tech / AI",pe:"28.1x",upside:"~15-30%",conviction:"Medium",reason:"Cheapest mega-cap tech at 28x earnings vs peer avg of 57x. Dominant in search, cloud (GCP growing fast), YouTube, and AI (Gemini). Massive cash generation. Trades below Simply Wall St fair value of ~$345. AI monetization upside not yet priced in."},{ticker:"LMT",name:"Lockheed Martin",sector:"Defense",pe:"22.1x (fwd)",upside:"~10-20%",conviction:"Medium",reason:"Record backlog of $194B. Missiles & Fire Control segment grew 18% YoY. Iran conflict is consuming missile inventories that need restocking. Global defense budgets ratcheting up (NATO, Gulf, Asia). Low beta (0.20). 2.1% dividend yield."},{ticker:"RTX",name:"RTX (Raytheon)",sector:"Defense",pe:"~34x",upside:"~15-25%",conviction:"Medium",reason:"Dominant in air/missile defense systems (Patriot, NASAMS, SM-3). Iran conflict driving massive demand for exactly what RTX makes. Strong aftermarket/services revenue. European rearmament is a multi-year tailwind."},{ticker:"RHM",name:"Rheinmetall",sector:"Defense (EU)",pe:"~45x (high growth)",upside:"~30-50%",conviction:"High",reason:"European defense rearmament is the defining theme of the decade. Germany alone committed to EUR 100B+ defense fund. Rheinmetall is Europe's leading ammunition and armored vehicle maker. Revenue growing 30%+ annually. The EU defense spending cycle is just beginning."},{ticker:"AMAT",name:"Applied Materials",sector:"Semicon Equipment",pe:"~27x (fwd ~21x)",upside:"~20-35%",conviction:"Medium",reason:"Picks-and-shovels play on AI and semiconductor buildout. Benefits regardless of which chip companies win. Strong ICAPS demand (auto, power, IoT). Forward PE of ~21x is cheap for a company at the center of every major fab expansion globally."},{ticker:"BRK.B",name:"Berkshire Hathaway",sector:"Conglomerate",pe:"~12x",upside:"~10-20%",conviction:"Medium",reason:"The ultimate sleep-well-at-night position. $300B+ cash pile, diversified earnings, no debt risk. Buffett has been a net seller of equities, suggesting he sees better opportunities ahead. A hedge against everything going wrong."},{ticker:"XLE",name:"Energy Select SPDR",sector:"ETF (Energy)",pe:"~13x",upside:"~20-40%",conviction:"High",reason:"Broad basket of top US energy companies (XOM, CVX, COP, EOG, etc.). Avoids single-stock risk. Directly benefits from elevated oil/gas prices. Low expense ratio (0.09%)."},{ticker:"ITA",name:"iShares US Aero & Def",sector:"ETF (Defense)",pe:"~28x",upside:"~15-30%",conviction:"Medium",reason:"Holds LMT, RTX, GE Aerospace, Northrop, L3Harris and more. Captures the entire US defense spending cycle without picking individual winners. Multi-year tailwind from Iran conflict restocking and NATO commitments."},{ticker:"GLD",name:"SPDR Gold Trust",sector:"ETF (Gold)",pe:"N/A",upside:"~15-30%",conviction:"High",reason:"Geopolitical instability + inflation risk + central bank buying + fiscal deficits = structural gold demand. Gold has outperformed in every major conflict period. Acts as portfolio insurance."},{ticker:"IBIT",name:"iShares Bitcoin Trust",sector:"ETF (Bitcoin)",pe:"N/A",upside:"~30-100%+",conviction:"Medium",reason:"Digital gold narrative strengthens in geopolitical chaos. Trump's pro-crypto stance and Strategic Bitcoin Reserve proposal are policy tailwinds. Institutional adoption accelerating via ETFs. High volatility but strong 2-3 year asymmetry."}];
+const cc={High:{bg:"#1a3a2a",text:"#4ade80",border:"#2d5a3e"},Medium:{bg:"#2a2a1a",text:"#facc15",border:"#4a4a2d"}};
+function App(){
+  const[expandedRow,setExpandedRow]=useState(null);
+  const[filter,setFilter]=useState("All");
+  const sectors=["All","Energy","Semis","Tech","Defense","Other","ETFs"];
+  const match=(s,f)=>{if(f==="All")return true;if(f==="Energy")return s.sector.includes("Energy")&&!s.sector.includes("ETF");if(f==="Defense")return s.sector.includes("Defense")&&!s.sector.includes("ETF");if(f==="Semis")return s.sector.includes("Semi");if(f==="Tech")return s.sector.includes("Tech");if(f==="ETFs")return s.sector.includes("ETF");return!s.sector.includes("Energy")&&!s.sector.includes("Defense")&&!s.sector.includes("Semi")&&!s.sector.includes("ETF")&&!s.sector.includes("Tech")};
+  const filtered=stocks.filter(s=>match(s,filter));
+  return(
+    <div style={{minHeight:"100vh",background:"#0a0a0a",color:"#e5e5e5",fontFamily:"'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",padding:"32px 24px"}}>
+      <div style={{maxWidth:1100,margin:"0 auto"}}>
+        <div style={{marginBottom:32}}>
+          <h1 style={{fontSize:28,fontWeight:700,color:"#fff",margin:0,letterSpacing:"-0.5px"}}>15 Stock & ETF Picks</h1>
+          <p style={{fontSize:14,color:"#737373",margin:"6px 0 0 0"}}>2-3 Year Horizon · Value + Fundamentals + Upside Potential · March 2026</p>
+        </div>
+        <div style={{display:"flex",gap:8,marginBottom:24,flexWrap:"wrap"}}>
+          {sectors.map(s=><button key={s} onClick={()=>setFilter(s)} style={{padding:"6px 16px",borderRadius:20,border:filter===s?"1px solid #e5e5e5":"1px solid #2a2a2a",background:filter===s?"#e5e5e5":"transparent",color:filter===s?"#0a0a0a":"#737373",fontSize:13,fontWeight:500,cursor:"pointer"}}>{s}</button>)}
+        </div>
+        <div style={{border:"1px solid #1a1a1a",borderRadius:12,overflow:"hidden"}}>
+          <table style={{width:"100%",borderCollapse:"collapse"}}>
+            <thead><tr style={{borderBottom:"1px solid #1a1a1a"}}>
+              {["#","Ticker","Sector","P/E","Upside","Conv.",""].map((h,i)=><th key={i} style={{padding:"14px 16px",textAlign:"left",fontSize:11,fontWeight:600,color:"#525252",textTransform:"uppercase",letterSpacing:"0.5px",background:"#0f0f0f"}}>{h}</th>)}
+            </tr></thead>
+            <tbody>{filtered.map((stock)=>{
+              const gi=stocks.indexOf(stock);const isExp=expandedRow===gi;const c=cc[stock.conviction];
+              return(<tr key={stock.ticker} onClick={()=>setExpandedRow(isExp?null:gi)} style={{borderBottom:"1px solid #141414",cursor:"pointer",background:isExp?"#111":"transparent"}}>
+                <td style={{padding:"14px 16px",fontSize:12,color:"#525252",fontWeight:600,width:40}}>{gi+1}</td>
+                <td style={{padding:"14px 16px"}}><div style={{display:"flex",flexDirection:"column",gap:2}}>
+                  <span style={{fontSize:15,fontWeight:700,color:"#fff",letterSpacing:"-0.3px"}}>{stock.ticker}</span>
+                  <span style={{fontSize:11,color:"#525252"}}>{stock.name}</span>
+                  {isExp&&<div style={{marginTop:12,padding:"12px 14px",background:"#0a0a0a",borderRadius:8,border:"1px solid #1a1a1a",fontSize:13,lineHeight:1.65,color:"#a3a3a3",maxWidth:650}}>{stock.reason}</div>}
+                </div></td>
+                <td style={{padding:"14px 16px",fontSize:12,color:"#737373"}}>{stock.sector}</td>
+                <td style={{padding:"14px 16px",fontSize:14,fontWeight:600,color:"#fff"}}>{stock.pe}</td>
+                <td style={{padding:"14px 16px",fontSize:14,fontWeight:600,color:"#4ade80"}}>{stock.upside}</td>
+                <td style={{padding:"14px 16px"}}><span style={{display:"inline-block",padding:"3px 10px",borderRadius:6,fontSize:11,fontWeight:600,background:c.bg,color:c.text,border:"1px solid "+c.border}}>{stock.conviction}</span></td>
+                <td style={{padding:"14px 16px",fontSize:14,color:"#525252"}}>{isExp?"▲":"▼"}</td>
+              </tr>);
+            })}</tbody>
+          </table>
+        </div>
+        <div style={{marginTop:24,padding:"16px 20px",background:"#0f0f0f",borderRadius:10,border:"1px solid #1a1a1a"}}>
+          <p style={{fontSize:12,color:"#525252",margin:0,lineHeight:1.7}}><strong style={{color:"#737373"}}>Disclaimer:</strong> Not financial advice. Data approximate, based on public info as of March 2026. Do your own due diligence. Past performance does not guarantee future results.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+ReactDOM.render(<App/>,document.getElementById("root"));
+</script>
+</body>
+</html>
