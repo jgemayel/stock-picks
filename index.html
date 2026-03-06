@@ -13,9 +13,56 @@
 <div id="root"></div>
 <script type="text/babel">
 const{useState}=React;
+
+function Gate({onPass}){
+  const[wrong,setWrong]=useState(false);
+  return(
+    <div style={{minHeight:"100vh",background:"#0a0a0a",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"}}>
+      <div style={{textAlign:"center",maxWidth:460,padding:"0 24px"}}>
+        <div style={{fontSize:48,marginBottom:24}}>🔒</div>
+        <h1 style={{fontSize:24,fontWeight:700,color:"#fff",marginBottom:8,letterSpacing:"-0.5px"}}>Access Required</h1>
+        <p style={{fontSize:14,color:"#737373",marginBottom:40}}>Answer correctly to view the stock picks.</p>
+        <div style={{background:"#0f0f0f",border:"1px solid #1a1a1a",borderRadius:12,padding:"32px 28px",textAlign:"left"}}>
+          <p style={{fontSize:16,fontWeight:600,color:"#e5e5e5",marginBottom:24}}>Who's smarter?</p>
+          <div style={{display:"flex",flexDirection:"column",gap:12}}>
+            <button onClick={onPass} style={{padding:"14px 20px",borderRadius:10,border:"1px solid #2a2a2a",background:"transparent",color:"#e5e5e5",fontSize:15,fontWeight:500,cursor:"pointer",textAlign:"left",transition:"all 0.2s"}} onMouseEnter={e=>{e.target.style.border="1px solid #4ade80";e.target.style.background="#1a3a2a"}} onMouseLeave={e=>{e.target.style.border="1px solid #2a2a2a";e.target.style.background="transparent"}}>
+              🧠&nbsp;&nbsp;Jimmy
+            </button>
+            <button onClick={()=>setWrong(true)} style={{padding:"14px 20px",borderRadius:10,border:"1px solid #2a2a2a",background:"transparent",color:"#e5e5e5",fontSize:15,fontWeight:500,cursor:"pointer",textAlign:"left",transition:"all 0.2s"}} onMouseEnter={e=>{e.target.style.border="1px solid #ef4444";e.target.style.background="#2a1a1a"}} onMouseLeave={e=>{e.target.style.border="1px solid #2a2a2a";e.target.style.background="transparent"}}>
+              🤔&nbsp;&nbsp;Ghassan
+            </button>
+          </div>
+          {wrong&&<div style={{marginTop:20,padding:"14px 16px",background:"#1a0a0a",border:"1px solid #3a1a1a",borderRadius:8,textAlign:"center"}}>
+            <p style={{fontSize:20,marginBottom:6}}>❌</p>
+            <p style={{fontSize:14,fontWeight:600,color:"#ef4444"}}>Sorry, try again next time.</p>
+            <p style={{fontSize:12,color:"#525252",marginTop:4}}>Wrong answer. You know better than that.</p>
+          </div>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Congrats({onContinue}){
+  return(
+    <div style={{minHeight:"100vh",background:"#0a0a0a",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"}}>
+      <div style={{textAlign:"center",maxWidth:460,padding:"0 24px"}}>
+        <div style={{fontSize:64,marginBottom:16}}>🎉</div>
+        <h1 style={{fontSize:28,fontWeight:700,color:"#fff",marginBottom:8}}>Congrats!</h1>
+        <p style={{fontSize:16,color:"#4ade80",marginBottom:8,fontWeight:500}}>Correct answer. Obviously.</p>
+        <p style={{fontSize:13,color:"#525252",marginBottom:32}}>Welcome to the inner circle.</p>
+        <button onClick={onContinue} style={{padding:"12px 32px",borderRadius:10,border:"none",background:"#e5e5e5",color:"#0a0a0a",fontSize:14,fontWeight:600,cursor:"pointer"}}>
+          View Stock Picks →
+        </button>
+      </div>
+    </div>
+  );
+}
+
 const stocks=[{ticker:"EOG",name:"EOG Resources",sector:"Energy (E&P)",pe:"13.3x",upside:"~50-110%",conviction:"High",reason:"Best-in-class shale operator. PE of 13x, EV/EBITDA 6x, D/E 0.31, ROE 17%, ROIC 14%. Returned 100% of $4.7B FCF to shareholders in 2025. Low-cost Delaware Basin leader. Massive DCF discount to intrinsic value (~$269 vs ~$125). Asymmetric upside if oil stays elevated."},{ticker:"DVN",name:"Devon Energy",sector:"Energy (E&P)",pe:"10.7x",upside:"~30-60%",conviction:"High",reason:"Cheapest large-cap E&P at ~10x earnings. Variable dividend pays up to 50% of excess cash flow, so income scales with oil prices. Coterra merger adds Appalachian gas exposure. EV/EBITDA of 4.7x. Strong Permian and Delaware Basin acreage."},{ticker:"COP",name:"ConocoPhillips",sector:"Energy (E&P)",pe:"17.2x",upside:"~25-40%",conviction:"Medium",reason:"Post-Marathon, COP is the largest pure E&P with breakeven as low as $30/bbl. $7B FCF inflection projected by 2029 (Willow project). LNG offtake of 10 MTPA starting 2026. Scale and cost discipline are best in class. Pricier than EOG/DVN but lower risk."},{ticker:"LNG",name:"Cheniere Energy",sector:"Energy (LNG Infra)",pe:"10.3x",upside:"~30-50%",conviction:"High",reason:"Structural energy security play. 90% of LNG volumes locked in 20-year contracts. Wide moat (Morningstar). ROE 59%, ROIC 20%. Corpus Christi expansion online 2026. Benefits from any Strait of Hormuz disruption or European gas diversification. Low beta (0.27)."},{ticker:"MU",name:"Micron Technology",sector:"Semiconductors",pe:"~37x (13x fwd)",upside:"~20-60%",conviction:"High",reason:"Only US-based HBM manufacturer. HBM3e and HBM4 sold out for all of 2026. Revenue up 49% YoY, earnings up 998%. Forward PE of ~13x on booming AI demand. Nvidia's key memory supplier. $100B NY fab under construction. Secular AI demand, not cyclical this time."},{ticker:"GOOGL",name:"Alphabet",sector:"Tech / AI",pe:"28.1x",upside:"~15-30%",conviction:"Medium",reason:"Cheapest mega-cap tech at 28x earnings vs peer avg of 57x. Dominant in search, cloud (GCP growing fast), YouTube, and AI (Gemini). Massive cash generation. Trades below Simply Wall St fair value of ~$345. AI monetization upside not yet priced in."},{ticker:"LMT",name:"Lockheed Martin",sector:"Defense",pe:"22.1x (fwd)",upside:"~10-20%",conviction:"Medium",reason:"Record backlog of $194B. Missiles & Fire Control segment grew 18% YoY. Iran conflict is consuming missile inventories that need restocking. Global defense budgets ratcheting up (NATO, Gulf, Asia). Low beta (0.20). 2.1% dividend yield."},{ticker:"RTX",name:"RTX (Raytheon)",sector:"Defense",pe:"~34x",upside:"~15-25%",conviction:"Medium",reason:"Dominant in air/missile defense systems (Patriot, NASAMS, SM-3). Iran conflict driving massive demand for exactly what RTX makes. Strong aftermarket/services revenue. European rearmament is a multi-year tailwind."},{ticker:"RHM",name:"Rheinmetall",sector:"Defense (EU)",pe:"~45x (high growth)",upside:"~30-50%",conviction:"High",reason:"European defense rearmament is the defining theme of the decade. Germany alone committed to EUR 100B+ defense fund. Rheinmetall is Europe's leading ammunition and armored vehicle maker. Revenue growing 30%+ annually. The EU defense spending cycle is just beginning."},{ticker:"AMAT",name:"Applied Materials",sector:"Semicon Equipment",pe:"~27x (fwd ~21x)",upside:"~20-35%",conviction:"Medium",reason:"Picks-and-shovels play on AI and semiconductor buildout. Benefits regardless of which chip companies win. Strong ICAPS demand (auto, power, IoT). Forward PE of ~21x is cheap for a company at the center of every major fab expansion globally."},{ticker:"BRK.B",name:"Berkshire Hathaway",sector:"Conglomerate",pe:"~12x",upside:"~10-20%",conviction:"Medium",reason:"The ultimate sleep-well-at-night position. $300B+ cash pile, diversified earnings, no debt risk. Buffett has been a net seller of equities, suggesting he sees better opportunities ahead. A hedge against everything going wrong."},{ticker:"XLE",name:"Energy Select SPDR",sector:"ETF (Energy)",pe:"~13x",upside:"~20-40%",conviction:"High",reason:"Broad basket of top US energy companies (XOM, CVX, COP, EOG, etc.). Avoids single-stock risk. Directly benefits from elevated oil/gas prices. Low expense ratio (0.09%)."},{ticker:"ITA",name:"iShares US Aero & Def",sector:"ETF (Defense)",pe:"~28x",upside:"~15-30%",conviction:"Medium",reason:"Holds LMT, RTX, GE Aerospace, Northrop, L3Harris and more. Captures the entire US defense spending cycle without picking individual winners. Multi-year tailwind from Iran conflict restocking and NATO commitments."},{ticker:"GLD",name:"SPDR Gold Trust",sector:"ETF (Gold)",pe:"N/A",upside:"~15-30%",conviction:"High",reason:"Geopolitical instability + inflation risk + central bank buying + fiscal deficits = structural gold demand. Gold has outperformed in every major conflict period. Acts as portfolio insurance."},{ticker:"IBIT",name:"iShares Bitcoin Trust",sector:"ETF (Bitcoin)",pe:"N/A",upside:"~30-100%+",conviction:"Medium",reason:"Digital gold narrative strengthens in geopolitical chaos. Trump's pro-crypto stance and Strategic Bitcoin Reserve proposal are policy tailwinds. Institutional adoption accelerating via ETFs. High volatility but strong 2-3 year asymmetry."}];
-const cc={High:{bg:"#1a3a2a",text:"#4ade80",border:"#2d5a3e"},Medium:{bg:"#2a2a1a",text:"#facc15",border:"#4a4a2d"}};
-function App(){
+const ccMap={High:{bg:"#1a3a2a",text:"#4ade80",border:"#2d5a3e"},Medium:{bg:"#2a2a1a",text:"#facc15",border:"#4a4a2d"}};
+
+function Dashboard(){
   const[expandedRow,setExpandedRow]=useState(null);
   const[filter,setFilter]=useState("All");
   const sectors=["All","Energy","Semis","Tech","Defense","Other","ETFs"];
@@ -37,7 +84,7 @@ function App(){
               {["#","Ticker","Sector","P/E","Upside","Conv.",""].map((h,i)=><th key={i} style={{padding:"14px 16px",textAlign:"left",fontSize:11,fontWeight:600,color:"#525252",textTransform:"uppercase",letterSpacing:"0.5px",background:"#0f0f0f"}}>{h}</th>)}
             </tr></thead>
             <tbody>{filtered.map((stock)=>{
-              const gi=stocks.indexOf(stock);const isExp=expandedRow===gi;const c=cc[stock.conviction];
+              const gi=stocks.indexOf(stock);const isExp=expandedRow===gi;const c=ccMap[stock.conviction];
               return(<tr key={stock.ticker} onClick={()=>setExpandedRow(isExp?null:gi)} style={{borderBottom:"1px solid #141414",cursor:"pointer",background:isExp?"#111":"transparent"}}>
                 <td style={{padding:"14px 16px",fontSize:12,color:"#525252",fontWeight:600,width:40}}>{gi+1}</td>
                 <td style={{padding:"14px 16px"}}><div style={{display:"flex",flexDirection:"column",gap:2}}>
@@ -61,6 +108,14 @@ function App(){
     </div>
   );
 }
+
+function App(){
+  const[screen,setScreen]=useState("gate");
+  if(screen==="gate") return <Gate onPass={()=>setScreen("congrats")}/>;
+  if(screen==="congrats") return <Congrats onContinue={()=>setScreen("dashboard")}/>;
+  return <Dashboard/>;
+}
+
 ReactDOM.render(<App/>,document.getElementById("root"));
 </script>
 </body>
